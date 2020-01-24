@@ -19,7 +19,7 @@ $ npm install -g creations
 $ creations COMMAND
 running command...
 $ creations (-v|--version|version)
-creations/0.2.0 linux-x64 node-v13.4.0
+creations/0.1.0 linux-x64 node-v13.4.0
 $ creations --help [COMMAND]
 USAGE
   $ creations COMMAND
@@ -49,7 +49,7 @@ EXAMPLE
   hello world from ./src/hello.ts!
 ```
 
-_See code: [src/commands/hello.ts](https://github.com/ewen-lbh/creations/blob/v0.2.0/src/commands/hello.ts)_
+_See code: [src/commands/hello.ts](https://github.com/ewen-lbh/creations/blob/v0.1.0/src/commands/hello.ts)_
 
 ## `creations help [COMMAND]`
 
