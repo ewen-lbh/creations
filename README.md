@@ -19,7 +19,7 @@ $ npm install -g creations
 $ creations COMMAND
 running command...
 $ creations (-v|--version|version)
-creations/0.1.0 linux-x64 node-v13.4.0
+creations/0.2.0 linux-x64 node-v13.4.0
 $ creations --help [COMMAND]
 USAGE
   $ creations COMMAND
@@ -54,7 +54,7 @@ EXAMPLES
   $ creations add resource background.png
 ```
 
-_See code: [src/commands/add.ts](https://github.com/ewen-lbh/creations/blob/v0.1.0/src/commands/add.ts)_
+_See code: [src/commands/add.ts](https://github.com/ewen-lbh/creations/blob/v0.2.0/src/commands/add.ts)_
 
 ## `creations config`
 
@@ -68,7 +68,7 @@ OPTIONS
   -h, --help  show CLI help
 ```
 
-_See code: [src/commands/config.ts](https://github.com/ewen-lbh/creations/blob/v0.1.0/src/commands/config.ts)_
+_See code: [src/commands/config.ts](https://github.com/ewen-lbh/creations/blob/v0.2.0/src/commands/config.ts)_
 
 ## `creations goto [CREATION]`
 
@@ -85,7 +85,7 @@ EXAMPLE
   $ creations goto schoolsyst
 ```
 
-_See code: [src/commands/goto.ts](https://github.com/ewen-lbh/creations/blob/v0.1.0/src/commands/goto.ts)_
+_See code: [src/commands/goto.ts](https://github.com/ewen-lbh/creations/blob/v0.2.0/src/commands/goto.ts)_
 
 ## `creations help [COMMAND]`
 
@@ -126,7 +126,7 @@ EXAMPLES
   v2.0.3
 ```
 
-_See code: [src/commands/iteration.ts](https://github.com/ewen-lbh/creations/blob/v0.1.0/src/commands/iteration.ts)_
+_See code: [src/commands/iteration.ts](https://github.com/ewen-lbh/creations/blob/v0.2.0/src/commands/iteration.ts)_
 
 ## `creations list [FILE]`
 
@@ -147,7 +147,7 @@ EXAMPLE
   ...
 ```
 
-_See code: [src/commands/list.ts](https://github.com/ewen-lbh/creations/blob/v0.1.0/src/commands/list.ts)_
+_See code: [src/commands/list.ts](https://github.com/ewen-lbh/creations/blob/v0.2.0/src/commands/list.ts)_
 
 ## `creations new TYPE CREATION`
 
@@ -165,7 +165,7 @@ EXAMPLES
   $ creations new logo mx3
 ```
 
-_See code: [src/commands/new.ts](https://github.com/ewen-lbh/creations/blob/v0.1.0/src/commands/new.ts)_
+_See code: [src/commands/new.ts](https://github.com/ewen-lbh/creations/blob/v0.2.0/src/commands/new.ts)_
 
 ## `creations open [FILE]`
 
@@ -180,7 +180,7 @@ OPTIONS
   --no-goto   Don't  run `goto CREATION`
 ```
 
-_See code: [src/commands/open.ts](https://github.com/ewen-lbh/creations/blob/v0.1.0/src/commands/open.ts)_
+_See code: [src/commands/open.ts](https://github.com/ewen-lbh/creations/blob/v0.2.0/src/commands/open.ts)_
 
 ## `creations publish`
 
@@ -194,5 +194,5 @@ OPTIONS
   -h, --help  show CLI help
 ```
 
-_See code: [src/commands/publish.ts](https://github.com/ewen-lbh/creations/blob/v0.1.0/src/commands/publish.ts)_
+_See code: [src/commands/publish.ts](https://github.com/ewen-lbh/creations/blob/v0.2.0/src/commands/publish.ts)_
 <!-- commandsstop -->
