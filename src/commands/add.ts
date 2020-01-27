@@ -1,4 +1,5 @@
-import {Command, flags} from '@oclif/command'
+import {flags} from '@oclif/command'
+import Command from '../base'
 
 export default class Add extends Command {
   static description = 'Add a new THING named NAME to the current creation. "things" need to be added in the creation type\'s configuration.'

@@ -1,4 +1,5 @@
-import {Command, flags} from '@oclif/command'
+import {flags} from '@oclif/command'
+import Command from '../base'
 
 export default class Iteration extends Command {
   static description = 'Set, increment or get the creation\'s version'

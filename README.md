@@ -7,6 +7,7 @@ A universal creations manager, to scaffold, publish, version, navigate and manag
 [![Version](https://img.shields.io/npm/v/creations.svg)](https://npmjs.org/package/creations)
 [![Downloads/week](https://img.shields.io/npm/dw/creations.svg)](https://npmjs.org/package/creations)
 [![License](https://img.shields.io/npm/l/creations.svg)](https://github.com/ewen-lbh/creations/blob/master/package.json)
+[![Build Status](https://travis-ci.com/ewen-lbh/creations.svg?branch=master)](https://travis-ci.com/ewen-lbh/creations)
 
 <!-- toc -->
 * [Usage](#usage)

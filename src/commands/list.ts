@@ -1,4 +1,5 @@
-import {Command, flags} from '@oclif/command'
+import {flags} from '@oclif/command'
+import Command from '../base'
 
 export default class List extends Command {
   static description = 'List all of your creations'
@@ -13,8 +14,6 @@ D:\\#\\Graphism\\static\\logos\\mx3
     help: flags.help({char: 'h'}),
     'paths-only': flags.boolean({description: 'Only print the creations\' paths'}),
   }
-
-  static args = [{name: 'file'}]
 
   async run() {
     const {args, flags} = this.parse(List)

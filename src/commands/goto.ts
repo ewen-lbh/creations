@@ -1,4 +1,5 @@
-import {Command, flags} from '@oclif/command'
+import {flags} from '@oclif/command'
+import Command from '../base'
 
 export default class Goto extends Command {
   static description = 'Change the current working directory to CREATION\'s directory'
