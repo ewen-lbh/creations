@@ -25,14 +25,14 @@ function loadConfig(contents: string | Buffer): Object {
   return toml.parse(contents)
 }
 
-function readOrCreate(directory: string, filename: string, defaultContent: string = ''): Buffer {
+function readOrCreate(directory: string, filename: string, defaultContent = ''): string {
   if (!existsSync(directory)) {
     console.log(`Creating directory ${directory}`)
-    mkdirSync(directory, { recursive: true })
+    mkdirSync(directory, {recursive: true})
   }
   if (!existsSync(filename)) {
     console.log(`Creating file ${path.join(directory, filename)}`)
     writeFileSync(path.join(directory, filename), defaultContent)
   }
-  return readFileSync(path.join(directory, filename))
+  return readFileSync(path.join(directory, filename)).toString()
 }
