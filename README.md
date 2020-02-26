@@ -32,12 +32,14 @@ USAGE
 <!-- commands -->
 * [`creations add THING NAME`](#creations-add-thing-name)
 * [`creations config`](#creations-config)
+* [`creations debug`](#creations-debug)
 * [`creations goto [CREATION]`](#creations-goto-creation)
 * [`creations help [COMMAND]`](#creations-help-command)
+* [`creations idea [FILE]`](#creations-idea-file)
 * [`creations iteration [VERSION]`](#creations-iteration-version)
-* [`creations list [FILE]`](#creations-list-file)
+* [`creations list`](#creations-list)
 * [`creations new TYPE CREATION`](#creations-new-type-creation)
-* [`creations open [FILE]`](#creations-open-file)
+* [`creations open [CREATION]`](#creations-open-creation)
 * [`creations publish`](#creations-publish)
 
 ## `creations add THING NAME`
@@ -71,6 +73,18 @@ OPTIONS
 ```
 
 _See code: [src/commands/config.ts](https://github.com/ewen-lbh/creations/blob/v0.2.0/src/commands/config.ts)_
+
+## `creations debug`
+
+```
+USAGE
+  $ creations debug
+
+OPTIONS
+  --debug
+```
+
+_See code: [src/commands/debug.ts](https://github.com/ewen-lbh/creations/blob/v0.2.0/src/commands/debug.ts)_
 
 ## `creations goto [CREATION]`
 
@@ -106,6 +120,22 @@ OPTIONS
 
 _See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v2.2.3/src/commands/help.ts)_
 
+## `creations idea [FILE]`
+
+describe the command here
+
+```
+USAGE
+  $ creations idea [FILE]
+
+OPTIONS
+  -f, --force
+  -h, --help       show CLI help
+  -n, --name=name  name to print
+```
+
+_See code: [src/commands/idea.ts](https://github.com/ewen-lbh/creations/blob/v0.2.0/src/commands/idea.ts)_
+
 ## `creations iteration [VERSION]`
 
 Set, increment or get the creation's version
@@ -130,13 +160,13 @@ EXAMPLES
 
 _See code: [src/commands/iteration.ts](https://github.com/ewen-lbh/creations/blob/v0.2.0/src/commands/iteration.ts)_
 
-## `creations list [FILE]`
+## `creations list`
 
 List all of your creations
 
 ```
 USAGE
-  $ creations list [FILE]
+  $ creations list
 
 OPTIONS
   -h, --help    show CLI help
@@ -169,13 +199,13 @@ EXAMPLES
 
 _See code: [src/commands/new.ts](https://github.com/ewen-lbh/creations/blob/v0.2.0/src/commands/new.ts)_
 
-## `creations open [FILE]`
+## `creations open [CREATION]`
 
 Opens CREATION. The difference with `goto` is that this will also open the project in the configured software (eg. open the .psd in Photoshop)
 
 ```
 USAGE
-  $ creations open [FILE]
+  $ creations open [CREATION]
 
 OPTIONS
   -h, --help  show CLI help
