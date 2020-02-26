@@ -16,7 +16,8 @@ A universal creations manager, to scaffold, publish, version, navigate and manag
 # Usage
 <!-- usage -->
 ```sh-session
-$ npm install -g creations
+$ npm install -g creations # or, with yarn:
+$ yarn global add creations
 $ creations COMMAND
 running command...
 $ creations (-v|--version|version)
