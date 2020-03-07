@@ -1,0 +1,162 @@
+= creations configuration =
+A guide on how to configure the creations CLI
+v0.0.0
+
+== Creation types ==
+One of the core aspects of `creations` is creation types.
+These define what template will be used to scaffold your project, among other things.
+For example, when you run `creations new webapp/nuxt`, creations will use the template located at `~/.config/creations/templates/webapp.nuxt`.
+
+== Folder structure ==
+Inside `~/.config/creations/templates`, each folder is the name of a creation type. Here's the structure:
+
+```sh
+~/.config/creations/templates/
+	webapp.nuxt/
+		template.toml
+		new/ # Template for project creation (`creations new`)
+		add/ # Templates for project additions (`creations add`)
+			component/ # Template used when running `creations add component`
+			page/
+			store-module/
+```
+Let's first look at the `template.toml` file.
+
+```toml
+[new]
+in = "/mnt/d/projects/{{ name~slug }}"
+
+[add.component]
+in = "@/components/{{ name~slug }}"
+
+[add.store-module]
+in = "@/store/{{ name~slug }}"
+```
+
+Don't be afraid of `{{ name~slug }}` or `@/`, these are explained respectively in <<Substitutions>> and <<Paths>>
+
+== Substitutions ==
+creations tries its best to follow the widely-accepted https://mustache.github.io/[{{ mustache }}] templating engine.
+It drifs from the standard to add <<Filters,filters>>, akin to https://docs.djangoproject.com/fr/3.0/topics/templates/[Django's templating syntax].
+
+=== Filters ===
+Due to folder and file names limitations on Windows, we can't use `|` to indicate filters. Instead, the character `~` is used (reminiscent of the "transform arrow" `~>` sometimes used).
+
+Filters can be chained:
+
+With `name = "Hello, World!"`
+```django-html
+{{ name~slug~uppercased }}
+```
+
+will produce `HELLO-WORLD`.
+
+WARNING: The order of filters matters. In some cases, this will affect the output. Naturally, the order of chaining matches the calling order: `pass:[{{ name~slug~uppercased }}]` will do `uppercased(slug(name))`.
+
+==== Built-in filters ====
+slug :: 
+	Produces a slug, replacing any non-alphanumeric characters by dashes, and trimming dashes from the end of the produced string.
+
+uppercase ::
+	Converts to UPPERCASE
+
+lowercase ::
+	Converts to lowercase
+
+camelcase :: 
+	Converts to camelCase
+
+snakecase ::
+	Converts to snake_case
+
+kebabcase ::
+	Converts to kebab-case
+
+uppercasefirst ::
+	Converts the first character to uppercase
+
+pascalcase ::
+	Shortcut for `snakecase~uppercasefirst`
+
+constantcase ::
+	Shortcut for `snakecase~uppercase`
+
+titlecase ::
+	Converts to Title Case
+
+==== Adding your own ====
+You'll notice that, inside of your creations directory, a `filters` folder is present.
+
+Each file in this directory should be an executable that takes stdin as an input and ouputs the result to stdout.
+
+Moreover, you'll notice that some files are already in this directory: these are the built-in filters. You can modify these, but it's not recommended as it hurts portability.
+
+=== Variables ===
+
+The following variables are defined by default.
+
+[horizontal]
+name :: The project's name, as typed in the command
+type :: The project type
+
+For example, when you run `creations new webapp/svelte portfolio`:
+```toml
+name = "portfolio"
+type = "webapp/svelte"
+```
+
+== Paths ==
+Some special sequences are resolved in paths, namely:
+
+[horizontal]
+@ :: Current project's directory.
+~ :: Home folder (Supports windows user directory)
+. :: Current working directory
+
+== Running scripts ==
+You can run custom scripts _after_ and _before_ the templating is done.
+In your `template.toml` file, do:
+
+```
+[on.<hook>]
+before = [ "script-to-run-before" ]
+after  = [ "script-to-run-after"  ]
+```
+
+Each command provides a hook, and the hook's name matches the command's.
+
+For example:
+```
+[on.idea]
+after = [ "github-projects \"{{ project }}\" column \"{{ column }}\" add card \"{{ idea }}\"" ]
+
+[on.idea.ask.column]
+default = "To Do"
+```
+
+If the return code is non-zero, the stdout is shown to the user, as an error and the return code is forwarded.
+If the return code is 1, the command will stop and fail.
+If the return code is 2, the stdout is shown to the user has a _warning_, and the command _continues to run_
+
+For `before` scripts, the stdout must be a JSON object containing at least `name` and `type` properties, and will be used as input for the real command.
+
+For example, assume the following setup for a type named `webapi`:
+
+.template.toml
+```toml
+[on.new]
+before = [ "example.sh" ]
+```
+
+.example.sh
+```bash
+return '{
+	"name": "overloaded!!!",
+	"type": "webapi"
+}'
+```
+
+When running `new webapi my-thing`, `creations` will create a new `webapi` named `overloaded!!!` (instead of `my-thing`).
+
+== Template inheritance ==
+You can inherit from other templates, so you can have eg. `generic.javascript` and your `cli.oclif` inherits ``

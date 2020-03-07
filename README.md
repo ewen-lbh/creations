@@ -16,12 +16,11 @@ A universal creations manager, to scaffold, publish, version, navigate and manag
 # Usage
 <!-- usage -->
 ```sh-session
-$ npm install -g creations # or, with yarn:
-$ yarn global add creations
+$ npm install -g creations
 $ creations COMMAND
 running command...
 $ creations (-v|--version|version)
-creations/0.2.0 linux-x64 node-v13.4.0
+creations/0.2.0 linux-x64 node-v13.8.0
 $ creations --help [COMMAND]
 USAGE
   $ creations COMMAND
@@ -31,16 +30,18 @@ USAGE
 # Commands
 <!-- commands -->
 * [`creations add THING NAME`](#creations-add-thing-name)
+* [`creations archive [FILE]`](#creations-archive-file)
 * [`creations config`](#creations-config)
 * [`creations debug`](#creations-debug)
 * [`creations goto [CREATION]`](#creations-goto-creation)
 * [`creations help [COMMAND]`](#creations-help-command)
-* [`creations idea [FILE]`](#creations-idea-file)
+* [`creations idea [PROJECT] IDEA`](#creations-idea-project-idea)
 * [`creations iteration [VERSION]`](#creations-iteration-version)
 * [`creations list`](#creations-list)
-* [`creations new TYPE CREATION`](#creations-new-type-creation)
+* [`creations new TYPE NAME`](#creations-new-type-name)
 * [`creations open [CREATION]`](#creations-open-creation)
 * [`creations publish`](#creations-publish)
+* [`creations unarchive [FILE]`](#creations-unarchive-file)
 
 ## `creations add THING NAME`
 
@@ -51,7 +52,9 @@ USAGE
   $ creations add THING NAME
 
 OPTIONS
-  -h, --help  show CLI help
+  -c, --creation=creation
+  -h, --help               show CLI help
+  -v, --debug
 
 EXAMPLES
   $ creations add component ModalAddHomework
@@ -59,6 +62,22 @@ EXAMPLES
 ```
 
 _See code: [src/commands/add.ts](https://github.com/ewen-lbh/creations/blob/v0.2.0/src/commands/add.ts)_
+
+## `creations archive [FILE]`
+
+describe the command here
+
+```
+USAGE
+  $ creations archive [FILE]
+
+OPTIONS
+  -f, --force
+  -h, --help       show CLI help
+  -n, --name=name  name to print
+```
+
+_See code: [src/commands/archive.ts](https://github.com/ewen-lbh/creations/blob/v0.2.0/src/commands/archive.ts)_
 
 ## `creations config`
 
@@ -81,7 +100,8 @@ USAGE
   $ creations debug
 
 OPTIONS
-  --debug
+  -h, --help   show CLI help
+  -v, --debug
 ```
 
 _See code: [src/commands/debug.ts](https://github.com/ewen-lbh/creations/blob/v0.2.0/src/commands/debug.ts)_
@@ -120,18 +140,13 @@ OPTIONS
 
 _See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v2.2.3/src/commands/help.ts)_
 
-## `creations idea [FILE]`
+## `creations idea [PROJECT] IDEA`
 
-describe the command here
+Put new ideas for the current project or for PROJECT
 
 ```
 USAGE
-  $ creations idea [FILE]
-
-OPTIONS
-  -f, --force
-  -h, --help       show CLI help
-  -n, --name=name  name to print
+  $ creations idea [PROJECT] IDEA
 ```
 
 _See code: [src/commands/idea.ts](https://github.com/ewen-lbh/creations/blob/v0.2.0/src/commands/idea.ts)_
@@ -181,16 +196,18 @@ EXAMPLE
 
 _See code: [src/commands/list.ts](https://github.com/ewen-lbh/creations/blob/v0.2.0/src/commands/list.ts)_
 
-## `creations new TYPE CREATION`
+## `creations new TYPE NAME`
 
 Create a new TYPE named CREATION
 
 ```
 USAGE
-  $ creations new TYPE CREATION
+  $ creations new TYPE NAME
 
 OPTIONS
-  -h, --help  show CLI help
+  -h, --help      show CLI help
+  -v, --debug
+  --in=DIRECTORY  Generate the template in the specified directory. Uses the type's new.in config as a default.
 
 EXAMPLES
   $ creations new restapi schoolsyst
@@ -227,4 +244,20 @@ OPTIONS
 ```
 
 _See code: [src/commands/publish.ts](https://github.com/ewen-lbh/creations/blob/v0.2.0/src/commands/publish.ts)_
+
+## `creations unarchive [FILE]`
+
+describe the command here
+
+```
+USAGE
+  $ creations unarchive [FILE]
+
+OPTIONS
+  -f, --force
+  -h, --help       show CLI help
+  -n, --name=name  name to print
+```
+
+_See code: [src/commands/unarchive.ts](https://github.com/ewen-lbh/creations/blob/v0.2.0/src/commands/unarchive.ts)_
 <!-- commandsstop -->

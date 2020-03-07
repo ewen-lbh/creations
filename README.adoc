@@ -1,0 +1,23 @@
+= creations =
+A CLI to manage what you create
+v0.0.0
+
+ifdef::env-github,env-browser[:outfilesuffix: .adoc]
+
+== Installation
+
+Install the command globally:
+```console
+# yarn
+$ yarn global add creations
+# npm
+$ npm i -g creations
+```
+
+== Configuration
+
+You'll want to define your types of creations.
+`creations` commes with one type of creation prefedefined: `creations-template`.
+This will assist you in creating your creations templates more quickly.
+
+For a complete how-to on configuration, see <<docs/CONFIGURING#,CONFIGURING>>.
