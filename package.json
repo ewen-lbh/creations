@@ -1,7 +1,7 @@
 {
   "name": "creations",
   "description": "A universal creations manager, to scaffold, publish, version, navigate and manage all of your creations, code-related or not!",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "author": "ewen-lbh @ewen-lbh",
   "bin": {
     "creations": "./bin/run"
