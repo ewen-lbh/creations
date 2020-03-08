@@ -158,5 +158,3 @@ return '{
 
 When running `new webapi my-thing`, `creations` will create a new `webapi` named `overloaded!!!` (instead of `my-thing`).
 
-== Template inheritance ==
-You can inherit from other templates, so you can have eg. `generic.javascript` and your `cli.oclif` inherits ``
