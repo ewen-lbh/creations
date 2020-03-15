@@ -4,6 +4,10 @@ v0.0.0
 
 ifdef::env-github,env-browser[:outfilesuffix: .adoc]
 
+== This project isn't dead
+I'm currently working hard on my https://ewen.works[portfolio] because I need to get it done.
+As soon as it is finished, I will go back to working on `creations` and https://www.schoolsyst.com[schoolsyst]
+
 == Installation
 
 Install the command globally:
