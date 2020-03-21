@@ -1,30 +1,30 @@
+//TODO: Use status = 'archived' or status = 'ongoing' instead of archived = true?
 const chalk = require('chalk')
 import { readOrCreate, appendOrCreate, writeOrCreate } from './io';
 import { existsSync } from 'fs';
+import { resolve } from 'path';
+const toml = require('@iarna/toml')
+const expandHomeDir = require('expand-home-dir')
 
 interface ICreationsRecord {
   directory: string;
   id: string;
+  archived: boolean;
+  type: string;
 }
 
 class CreationsRecord {
-  separator = ' in '
-
   path: string
 
   entries: ICreationsRecord[] = []
 
   constructor(recordPath: string) {
     this.path = recordPath
-    this.parse()
+    this.entries = this.parse()
   }
 
-  parse(): void {
-    let lines: ICreationsRecord[] | string[] = this._getLines(this.raw)
-    lines = this._cleanupBefore(lines)
-    lines = lines.map(line => this._parseLine(line))
-    lines = this._cleanupAfter(lines)
-    this.entries = lines
+  parse(): ICreationsRecord[] {
+    return toml.parse(this.raw).creation
   }
 
   write(): void {
@@ -32,16 +32,12 @@ class CreationsRecord {
   }
 
   get stringified(): string {
-    const plainLines = []
-    for (const entry of this.entries) {
-      plainLines.push(entry.id + this.separator + entry.directory)
-    }
-    return plainLines.join('\n')
+    return toml.stringify({creation: this.entries})
   }
 
   exists(entryID: string): boolean {
     const entry = this.byID(entryID)
-    return entry !== undefined && this.contains(entryID) && this.existsOnDisk(entry)
+    return entry !== undefined && (this.contains(entryID) || this.existsOnDisk(entry))
   }
 
   contains(entryID: string): boolean {
@@ -69,40 +65,37 @@ class CreationsRecord {
     return this.entries.find(entry => entry.directory === dir)
   }
 
-  add(obj: ICreationsRecord): void {
-    if (this.exists(obj)) {
-      throw new Error(chalk`{red Cannot add creation {white.bold '${obj.id}'}: this name is already taken}`)
+  add(entry: ICreationsRecord): void {
+    if (this.exists(entry.id)) {
+      throw new Error(chalk`{red Cannot add creation {white.bold '${entry.id}'}: this name is already taken}`)
     }
-    const raw = this._dumpLine(obj)
-    appendOrCreate(this.path, '\n' + raw)
+    this.entries.push({...entry, directory: resolve(expandHomeDir(entry.directory))})
+    writeOrCreate(this.path, this.stringified)
   }
 
-  _dumpLine(obj: ICreationsRecord): string {
-    return obj.id + this.separator + obj.directory
+  remove(entryID: string): void {
+    if (!this.contains(entryID)) {
+      throw new Error(chalk`{red Cannot delete creation {white.bold '${entryID}'}: not found}`)
+    }
+    this.entries = this.entries.filter(entry => entry.id !== entryID)
+    this.write()
+  }
+
+  edit(entryID: string, modifications: Record<string, any>) {
+    const entry = this.byID(entryID)
+    if (entry === undefined) {
+      throw new Error(chalk`{red Cannot modify creation {white.bold '${entryID}'}: not found}`)
+    }
+    this.remove(entryID)
+    this.add({
+      ...entry,
+      ...modifications,
+    })
   }
 
   get raw(): string {
     return readOrCreate(this.path)
   }
-
-  _getLines(content: string): string[] {
-    return content.split('\n')
-  }
-
-  _parseLine(line: string): ICreationsRecord {
-    const [id, directory] = line.split(this.separator)
-    return {id, directory}
-  }
-
-  _cleanupAfter(records: ICreationsRecord[]) {
-    return records.filter(({id, directory}) => id && directory)
-  }
-
-  _cleanupBefore(lines: string[]): string[] {
-    return lines.filter(line => {
-      return line.trim() && !line.startsWith('#')
-    })
-  }
 }
 
-export { ICreationsRecord, CreationsRecord }
+export {ICreationsRecord, CreationsRecord}

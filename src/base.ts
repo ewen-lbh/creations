@@ -1,9 +1,11 @@
 import Command, {flags} from '@oclif/command'
-const toml = require('toml')
+const toml = require('@iarna/toml')
 const path = require('path')
 const chalk = require('chalk')
 import {readOrCreate} from './io'
 import { ICreationsRecord, CreationsRecord } from './record'
+import { TemplatesManager } from './templates'
+import { join } from 'path'
 
 export default abstract class extends Command {
   static flags = {
@@ -14,7 +16,7 @@ export default abstract class extends Command {
   async init() {
     const { flags } = this.parse(this.constructor)
     if (!this.records.checkIntegrity()) {
-      throw new Error(chalk`Some projecs have been manually removed. Use {cyan creations regen records} and use {cyan creations delete} or {cyan creations move} to move or delete projects in the future.`)
+      throw new Error(chalk`Some projects have been manually removed. Use {cyan creations regen-records} and use {cyan creations delete} or {cyan creations move} to move or delete projects in the future.`)
     }
   }
 
@@ -51,6 +53,10 @@ export default abstract class extends Command {
     return recordID
   }
 
+  get templates(): TemplatesManager {
+    return new TemplatesManager(join(this.templatesPath))
+  }
+
   get settings(): Record<string, any> {
     return this.loadTOML(readOrCreate(this.settingsPath))
   }
@@ -59,12 +65,16 @@ export default abstract class extends Command {
     return new CreationsRecord(this.recordsPath)
   }
 
+  get templatesPath(): string {
+    return join(this.config.configDir, 'templates')
+  }
+  
   get settingsPath(): string {
-    return path.join(this.config.configDir, 'config.toml')
+    return join(this.config.configDir, 'config.toml')
   }
 
   get recordsPath(): string {
-    return path.join(this.config.configDir, '.creations')
+    return join(this.config.configDir, 'creations.toml')
   }
 
   loadTOML(contents: string | Buffer): Record<string, any> {

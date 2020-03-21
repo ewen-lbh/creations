@@ -7,6 +7,8 @@ One of the core aspects of `creations` is creation types.
 These define what template will be used to scaffold your project, among other things.
 For example, when you run `creations new webapp/nuxt`, creations will use the template located at `~/.config/creations/templates/webapp.nuxt`.
 
+The general pattern for a creation type is `kind/solution`, eg a `webapp/nuxt` is a `webapp` built with `nuxt`. This convention is not enforced for now, but following it may result in some benefits depending on how opiniated I decide to make this project.
+
 == Folder structure ==
 Inside `~/.config/creations/templates`, each folder is the name of a creation type. Here's the structure:
 
@@ -37,7 +39,7 @@ Don't be afraid of `{{ name~slug }}` or `@/`, these are explained respectively i
 
 == Substitutions ==
 creations tries its best to follow the widely-accepted https://mustache.github.io/[{{ mustache }}] templating engine.
-It drifs from the standard to add <<Filters,filters>>, akin to https://docs.djangoproject.com/fr/3.0/topics/templates/[Django's templating syntax].
+It dritfs from the standard to add <<Filters,filters>>, akin to https://docs.djangoproject.com/fr/3.0/topics/templates/[Django's templating syntax].
 
 === Filters ===
 Due to folder and file names limitations on Windows, we can't use `|` to indicate filters. Instead, the character `~` is used (reminiscent of the "transform arrow" `~>` sometimes used).
@@ -45,7 +47,7 @@ Due to folder and file names limitations on Windows, we can't use `|` to indicat
 Filters can be chained:
 
 With `name = "Hello, World!"`
-```django-html
+```
 {{ name~slug~uppercased }}
 ```
 
@@ -105,6 +107,9 @@ name = "portfolio"
 type = "webapp/svelte"
 ```
 
+For other variables, they will be asked when encountered for the first time during rendering.
+To define defaults, types and others properties, see <<Asking>>
+
 == Paths ==
 Some special sequences are resolved in paths, namely:
 
@@ -117,8 +122,8 @@ Some special sequences are resolved in paths, namely:
 You can run custom scripts _after_ and _before_ the templating is done.
 In your `template.toml` file, do:
 
-```
-[on.<hook>]
+```toml
+[<command>.execute]
 before = [ "script-to-run-before" ]
 after  = [ "script-to-run-after"  ]
 ```
@@ -126,17 +131,18 @@ after  = [ "script-to-run-after"  ]
 Each command provides a hook, and the hook's name matches the command's.
 
 For example:
-```
-[on.idea]
+```toml
+[idea.execute]
 after = [ "github-projects \"{{ project }}\" column \"{{ column }}\" add card \"{{ idea }}\"" ]
-
-[on.idea.ask.column]
-default = "To Do"
 ```
 
-If the return code is non-zero, the stdout is shown to the user, as an error and the return code is forwarded.
-If the return code is 1, the command will stop and fail.
-If the return code is 2, the stdout is shown to the user has a _warning_, and the command _continues to run_
+=== Reactions based on the return code ===
+
+When the code is non-zero, stderr is shown to the user as an error message, the command is aborted.
+
+If the code _is_ zero, but stderr is not empty, it is shown to the user as a warning message and the commmand *continues*.
+
+=== `before` scripts ===
 
 For `before` scripts, the stdout must be a JSON object containing at least `name` and `type` properties, and will be used as input for the real command.
 
@@ -158,3 +164,25 @@ return '{
 
 When running `new webapi my-thing`, `creations` will create a new `webapi` named `overloaded!!!` (instead of `my-thing`).
 
+== Asking ==
+
+You can provide default values for variables asked to the user during the command.
+
+Here's an example demonstrating all the properties and their default values, as well as the section to put all of this into.
+
+```toml
+[idea.ask.<variable>]
+# There is no "null" in TOML, but the default is what the user will end up inputing
+# if he just presses enter and uses the default.
+# Just omit this key to remove any default
+default = false
+# Allowed types: string, number, integer, json, array, object, float, path, css-color, hexadecimal, binary, octal, 
+type = "string"
+# The message shown before the prompt
+message = "{{ variable }}"
+# A list of strings to match against.
+# * Matches anything if the list is empty
+# * Can also be a string to specify bounds: use the format "<lower> to <upper>"
+# bounds can be any number, "+oo" (+∞), "-oo" (-∞)
+allowed_values = []
+```

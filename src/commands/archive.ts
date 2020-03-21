@@ -1,25 +1,17 @@
-import {Command, flags} from '@oclif/command'
+import {flags} from '@oclif/command'
+import Command from '../base'
 
 export default class Archive extends Command {
-  static description = 'describe the command here'
+  static description = 'Archive a creation'
 
   static flags = {
     help: flags.help({char: 'h'}),
-    // flag with a value (-n, --name=VALUE)
-    name: flags.string({char: 'n', description: 'name to print'}),
-    // flag with no value (-f, --force)
-    force: flags.boolean({char: 'f'}),
   }
 
-  static args = [{name: 'file'}]
+  static args = [{name: 'name'}]
 
   async run() {
     const {args, flags} = this.parse(Archive)
-
-    const name = flags.name || 'world'
-    this.log(`hello ${name} from /mnt/c/Users/ASUS/Coding/projects/creations/src/commands/archive.ts`)
-    if (args.file && flags.force) {
-      this.log(`you input --force and --file: ${args.file}`)
-    }
+    this.records.edit(args.name, {archived: true})
   }
 }

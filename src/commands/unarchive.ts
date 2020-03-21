@@ -1,25 +1,27 @@
-import {Command, flags} from '@oclif/command'
+import {flags} from '@oclif/command'
+import Command from '../base'
+const chalk = require('chalk')
 
 export default class Unarchive extends Command {
-  static description = 'describe the command here'
+  static description = 'Unarchive a project'
 
   static flags = {
     help: flags.help({char: 'h'}),
-    // flag with a value (-n, --name=VALUE)
-    name: flags.string({char: 'n', description: 'name to print'}),
-    // flag with no value (-f, --force)
-    force: flags.boolean({char: 'f'}),
   }
 
-  static args = [{name: 'file'}]
+  static args = [{name: 'name', required: false}]
 
   async run() {
     const {args, flags} = this.parse(Unarchive)
-
-    const name = flags.name || 'world'
-    this.log(`hello ${name} from /mnt/c/Users/ASUS/Coding/projects/creations/src/commands/unarchive.ts`)
-    if (args.file && flags.force) {
-      this.log(`you input --force and --file: ${args.file}`)
+    let creation
+    if (args.name) {
+      creation = this.records.byID(args.name)
+    } else {
+      creation = this.currentCreation
     }
+    if (creation === undefined) {
+      throw new Error(chalk`{red Could not unarchive {white.bold ${args.name}}: not found}`)
+    }
+    this.records.edit(creation.id, { archived: false })
   }
 }

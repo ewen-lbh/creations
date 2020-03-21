@@ -1,8 +1,6 @@
 import {flags} from '@oclif/command'
 import Command from '../base'
-import {writeOrCreate} from '../io'
-import {CreationsRecord} from '../record'
-import { existsSync } from 'fs'
+import consola from 'consola'
 const chalk = require('chalk')
 
 export default class New extends Command {
@@ -24,10 +22,31 @@ export default class New extends Command {
 
   async run() {
     const {args, flags} = this.parse(New)
-    if (this.records.exists())
+    if (this.records.exists(args.name)) {
+      if (flags.archive) {
+        consola.warn(chalk`A creation named {cyan ${args.name}} already exists. Archiving the old project.`)
+        this.records.edit(args.name, {archived: true})
+      } else if (flags.force) {
+        consola.warn(chalk`A creation named {cyan ${args.name}} already exists. Overwriting the old project.`)
+        this.records.remove(args.name)
+      } else {
+        throw new Error(chalk`{red The name {white.bold '${args.name}'} is already taken}`)
+      }
+    }
+    const template = this.templates.byType(args.type)
+    if (template === undefined) {
+      throw new Error(chalk`
+      {red No templates for creation type {white.bold ${args.type}}.}
+      Here's how to add one:
+          $ creations new template {cyan <your creation type>}
+      `)
+    }
+    const outputDir = template.generate('new', {...args})
     this.records.add({
-      directory: process.cwd() + 'templates' + args.type,
+      directory: outputDir,
       id: args.name,
+      archived: false,
+      type: args.type,
     })
     console.log(chalk`Added {cyan ${args.name}} to the creations record {dim (${this.recordsPath})}`)
   }
