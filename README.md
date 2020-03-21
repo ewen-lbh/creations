@@ -20,7 +20,7 @@ $ npm install -g creations
 $ creations COMMAND
 running command...
 $ creations (-v|--version|version)
-creations/0.3.0 linux-x64 node-v13.11.0
+creations/0.4.0 linux-x64 node-v13.11.0
 $ creations --help [COMMAND]
 USAGE
   $ creations COMMAND
@@ -47,7 +47,7 @@ USAGE
 * [`creations regen-records`](#creations-regen-records)
 * [`creations register DIRECTORY TYPE [NAME]`](#creations-register-directory-type-name)
 * [`creations rename [NAME] [NEW-NAME]`](#creations-rename-name-new-name)
-* [`creations scan [FILE]`](#creations-scan-file)
+* [`creations scan [DIRECTORY]`](#creations-scan-directory)
 * [`creations unarchive [NAME]`](#creations-unarchive-name)
 
 ## `creations add THING NAME`
@@ -68,7 +68,7 @@ EXAMPLES
   $ creations add resource background.png
 ```
 
-_See code: [src/commands/add.ts](https://github.com/ewen-lbh/creations/blob/v0.3.0/src/commands/add.ts)_
+_See code: [src/commands/add.ts](https://github.com/ewen-lbh/creations/blob/v0.4.0/src/commands/add.ts)_
 
 ## `creations archive [NAME]`
 
@@ -82,7 +82,7 @@ OPTIONS
   -h, --help  show CLI help
 ```
 
-_See code: [src/commands/archive.ts](https://github.com/ewen-lbh/creations/blob/v0.3.0/src/commands/archive.ts)_
+_See code: [src/commands/archive.ts](https://github.com/ewen-lbh/creations/blob/v0.4.0/src/commands/archive.ts)_
 
 ## `creations config`
 
@@ -96,7 +96,7 @@ OPTIONS
   -h, --help  show CLI help
 ```
 
-_See code: [src/commands/config.ts](https://github.com/ewen-lbh/creations/blob/v0.3.0/src/commands/config.ts)_
+_See code: [src/commands/config.ts](https://github.com/ewen-lbh/creations/blob/v0.4.0/src/commands/config.ts)_
 
 ## `creations debug`
 
@@ -109,7 +109,7 @@ OPTIONS
   -v, --debug
 ```
 
-_See code: [src/commands/debug.ts](https://github.com/ewen-lbh/creations/blob/v0.3.0/src/commands/debug.ts)_
+_See code: [src/commands/debug.ts](https://github.com/ewen-lbh/creations/blob/v0.4.0/src/commands/debug.ts)_
 
 ## `creations delete [FILE]`
 
@@ -125,7 +125,7 @@ OPTIONS
   -n, --name=name  name to print
 ```
 
-_See code: [src/commands/delete.ts](https://github.com/ewen-lbh/creations/blob/v0.3.0/src/commands/delete.ts)_
+_See code: [src/commands/delete.ts](https://github.com/ewen-lbh/creations/blob/v0.4.0/src/commands/delete.ts)_
 
 ## `creations extract [FILE]`
 
@@ -141,7 +141,7 @@ OPTIONS
   -n, --name=name  name to print
 ```
 
-_See code: [src/commands/extract.ts](https://github.com/ewen-lbh/creations/blob/v0.3.0/src/commands/extract.ts)_
+_See code: [src/commands/extract.ts](https://github.com/ewen-lbh/creations/blob/v0.4.0/src/commands/extract.ts)_
 
 ## `creations goto [CREATION]`
 
@@ -158,7 +158,7 @@ EXAMPLE
   $ creations goto schoolsyst
 ```
 
-_See code: [src/commands/goto.ts](https://github.com/ewen-lbh/creations/blob/v0.3.0/src/commands/goto.ts)_
+_See code: [src/commands/goto.ts](https://github.com/ewen-lbh/creations/blob/v0.4.0/src/commands/goto.ts)_
 
 ## `creations help [COMMAND]`
 
@@ -186,7 +186,7 @@ USAGE
   $ creations idea [PROJECT] IDEA
 ```
 
-_See code: [src/commands/idea.ts](https://github.com/ewen-lbh/creations/blob/v0.3.0/src/commands/idea.ts)_
+_See code: [src/commands/idea.ts](https://github.com/ewen-lbh/creations/blob/v0.4.0/src/commands/idea.ts)_
 
 ## `creations iteration [VERSION]`
 
@@ -210,7 +210,7 @@ EXAMPLES
   v2.0.3
 ```
 
-_See code: [src/commands/iteration.ts](https://github.com/ewen-lbh/creations/blob/v0.3.0/src/commands/iteration.ts)_
+_See code: [src/commands/iteration.ts](https://github.com/ewen-lbh/creations/blob/v0.4.0/src/commands/iteration.ts)_
 
 ## `creations list`
 
@@ -236,7 +236,7 @@ EXAMPLE
   ...
 ```
 
-_See code: [src/commands/list.ts](https://github.com/ewen-lbh/creations/blob/v0.3.0/src/commands/list.ts)_
+_See code: [src/commands/list.ts](https://github.com/ewen-lbh/creations/blob/v0.4.0/src/commands/list.ts)_
 
 ## `creations move [NAME] [DIRECTORY]`
 
@@ -251,7 +251,7 @@ OPTIONS
   -h, --help   show CLI help
 ```
 
-_See code: [src/commands/move.ts](https://github.com/ewen-lbh/creations/blob/v0.3.0/src/commands/move.ts)_
+_See code: [src/commands/move.ts](https://github.com/ewen-lbh/creations/blob/v0.4.0/src/commands/move.ts)_
 
 ## `creations new TYPE NAME`
 
@@ -273,7 +273,7 @@ EXAMPLES
   $ creations new logo mx3
 ```
 
-_See code: [src/commands/new.ts](https://github.com/ewen-lbh/creations/blob/v0.3.0/src/commands/new.ts)_
+_See code: [src/commands/new.ts](https://github.com/ewen-lbh/creations/blob/v0.4.0/src/commands/new.ts)_
 
 ## `creations open [NAME]`
 
@@ -288,7 +288,7 @@ OPTIONS
   --no-goto   Don't  run `goto CREATION`
 ```
 
-_See code: [src/commands/open.ts](https://github.com/ewen-lbh/creations/blob/v0.3.0/src/commands/open.ts)_
+_See code: [src/commands/open.ts](https://github.com/ewen-lbh/creations/blob/v0.4.0/src/commands/open.ts)_
 
 ## `creations publish`
 
@@ -302,7 +302,7 @@ OPTIONS
   -h, --help  show CLI help
 ```
 
-_See code: [src/commands/publish.ts](https://github.com/ewen-lbh/creations/blob/v0.3.0/src/commands/publish.ts)_
+_See code: [src/commands/publish.ts](https://github.com/ewen-lbh/creations/blob/v0.4.0/src/commands/publish.ts)_
 
 ## `creations regen-records`
 
@@ -316,7 +316,7 @@ OPTIONS
   -h, --help  show CLI help
 ```
 
-_See code: [src/commands/regen-records.ts](https://github.com/ewen-lbh/creations/blob/v0.3.0/src/commands/regen-records.ts)_
+_See code: [src/commands/regen-records.ts](https://github.com/ewen-lbh/creations/blob/v0.4.0/src/commands/regen-records.ts)_
 
 ## `creations register DIRECTORY TYPE [NAME]`
 
@@ -336,7 +336,7 @@ OPTIONS
   -h, --help   show CLI help
 ```
 
-_See code: [src/commands/register.ts](https://github.com/ewen-lbh/creations/blob/v0.3.0/src/commands/register.ts)_
+_See code: [src/commands/register.ts](https://github.com/ewen-lbh/creations/blob/v0.4.0/src/commands/register.ts)_
 
 ## `creations rename [NAME] [NEW-NAME]`
 
@@ -351,23 +351,21 @@ OPTIONS
   -i, --id-only  Do not change the directory, only the ID.
 ```
 
-_See code: [src/commands/rename.ts](https://github.com/ewen-lbh/creations/blob/v0.3.0/src/commands/rename.ts)_
+_See code: [src/commands/rename.ts](https://github.com/ewen-lbh/creations/blob/v0.4.0/src/commands/rename.ts)_
 
-## `creations scan [FILE]`
+## `creations scan [DIRECTORY]`
 
-describe the command here
+Scans through an entire directory and interactively add all creations.
 
 ```
 USAGE
-  $ creations scan [FILE]
+  $ creations scan [DIRECTORY]
 
 OPTIONS
-  -f, --force
-  -h, --help       show CLI help
-  -n, --name=name  name to print
+  -h, --help  show CLI help
 ```
 
-_See code: [src/commands/scan.ts](https://github.com/ewen-lbh/creations/blob/v0.3.0/src/commands/scan.ts)_
+_See code: [src/commands/scan.ts](https://github.com/ewen-lbh/creations/blob/v0.4.0/src/commands/scan.ts)_
 
 ## `creations unarchive [NAME]`
 
@@ -381,5 +379,5 @@ OPTIONS
   -h, --help  show CLI help
 ```
 
-_See code: [src/commands/unarchive.ts](https://github.com/ewen-lbh/creations/blob/v0.3.0/src/commands/unarchive.ts)_
+_See code: [src/commands/unarchive.ts](https://github.com/ewen-lbh/creations/blob/v0.4.0/src/commands/unarchive.ts)_
 <!-- commandsstop -->
