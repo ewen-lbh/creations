@@ -3,7 +3,6 @@ import {Command, flags} from '@oclif/command'
 const consola = require('consola')
 const chalk = require('chalk')
 import {CreationsRecord} from '../record'
-import BaseCommand from '../base'
 
 export default class RegenRecords extends Command {
   static description = 'Regenerates the record, removing projects that no longer exist on disk.'

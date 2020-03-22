@@ -1,16 +1,17 @@
-import {renameSync, mkdirSync, existsSync, rmdirSync} from 'fs'
-import {resolve, join, basename} from 'path'
+import {renameSync, mkdirSync, existsSync} from 'fs'
+import {resolve, join} from 'path'
 import {flags} from '@oclif/command'
 import Command from '../base'
 const consola = require('consola')
 const chalk = require('chalk')
+const execa = require('execa')
 
 export default class Move extends Command {
   static description = 'Move a project to a different directory.'
 
   static flags = {
-    help: flags.help({char: 'h'}),
-    force: flags.boolean({char: 'f', description: 'Overwrite existing target directory.'})
+    ...Command.flags,
+    force: flags.boolean({char: 'f', description: 'Overwrite existing target directory.'}),
   }
 
   static args = [{name: 'name'}, {name: 'directory'}]
@@ -25,7 +26,8 @@ export default class Move extends Command {
     if (existsSync(newDir)) {
       if (flags.force) {
         consola.warn(chalk`Deleting directory ${newDir} because it already exists.`)
-        rmdirSync(newDir, { recursive: true })
+        execa('rm', ['-r', newDir])
+        // rmdirSync(newDir, { recursive: true }) (Recursive removal is experimental.)
       } else {
         throw new Error(chalk`{red Cannot move creation: target directory already exists.}`)
       }

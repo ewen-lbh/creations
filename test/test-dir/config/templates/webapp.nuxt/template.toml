@@ -1,0 +1,5 @@
+[new]
+in = "/mnt/d/projects/{{ name }}"
+
+[add.component]
+in = "@/components"

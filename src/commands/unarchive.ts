@@ -1,4 +1,3 @@
-import {flags} from '@oclif/command'
 import Command from '../base'
 const chalk = require('chalk')
 
@@ -6,13 +5,13 @@ export default class Unarchive extends Command {
   static description = 'Unarchive a project'
 
   static flags = {
-    help: flags.help({char: 'h'}),
+    ...Command.flags,
   }
 
   static args = [{name: 'name', required: false}]
 
   async run() {
-    const {args, flags} = this.parse(Unarchive)
+    const {args} = this.parse(Unarchive)
     let creation
     if (args.name) {
       creation = this.records.byID(args.name)

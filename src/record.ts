@@ -1,11 +1,12 @@
-//TODO: Use status = 'archived' or status = 'ongoing' instead of archived = true?
+// TODO: Use status = 'archived' or status = 'ongoing' instead of archived = true?
 const chalk = require('chalk')
-import { readOrCreate, appendOrCreate, writeOrCreate } from './io';
-import { existsSync } from 'fs';
-import { resolve } from 'path';
+import { readOrCreate, writeOrCreate } from './io'
+import { existsSync } from 'fs'
+import { resolve } from 'path'
 const toml = require('@iarna/toml')
 const expandHomeDir = require('expand-home-dir')
 
+// eslint-disable-next-line @typescript-eslint/interface-name-prefix
 interface ICreationsRecord {
   directory: string;
   id: string;

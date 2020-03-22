@@ -1,7 +1,8 @@
+/* eslint-disable */
 import {flags} from '@oclif/command'
 import Command from '../base'
 import New from './new'
-const { Form, Confirm, prompt } = require('enquirer')
+const { prompt } = require('enquirer')
 import {listDir} from '../io'
 import { lstatSync } from 'fs'
 import { basename, resolve } from 'path'
@@ -11,7 +12,7 @@ export default class Scan extends Command {
   static description = 'Scans through an entire directory and interactively add all creations.'
 
   static flags = {
-    help: flags.help({char: 'h'}),
+    ...Command.flags,
   }
 
   static args = [{name: 'directory'}]
@@ -23,11 +24,14 @@ export default class Scan extends Command {
       if (!lstatSync(resolve(args.directory, directory)).isDirectory()) {
         continue
       }
+      if (this.records.byID(directory)) {
+        continue
+      }
       confirms.push({ name: directory, type: 'confirm', message: chalk`Register {cyan ${directory}}?` })
     }
     let directories = await prompt(confirms)
     directories = Object.entries(directories).filter(([k, v]) => v).map(([k, v]) => k)
-    const creationPrompts = {}
+    const creationPrompts = []
     for (const directory of directories) {
       creationPrompts.push({
         name: directory,

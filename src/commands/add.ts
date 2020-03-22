@@ -14,7 +14,7 @@ export default class Add extends Command {
 
   static flags = {
     ...Command.flags,
-    creation: flags.string({ char: 'c' })
+    creation: flags.string({ char: 'c' }),
   }
 
   async run() {
@@ -23,7 +23,7 @@ export default class Add extends Command {
       console.error(chalk`You are not currently in a creation directory.`)
     }
     if (flags.debug) {
-      console.info(chalk`Using creation ${this.currentCreation.id}`)
+      console.info(chalk`Using creation ${this.currentCreation?.id}`)
     }
     console.log('Not implemented.')
   }

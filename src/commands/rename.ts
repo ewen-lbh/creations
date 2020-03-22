@@ -8,8 +8,8 @@ export default class Rename extends Command {
   static description = 'Rename a creation (and move it to its new directory)'
 
   static flags = {
-    help: flags.help({char: 'h'}),
-    'id-only': flags.boolean({char: 'i', description: 'Do not change the directory, only the ID.'})
+    ...Command.flags,
+    'id-only': flags.boolean({char: 'i', description: 'Do not change the directory, only the ID.'}),
   }
 
   static args = [{name: 'name'}, {name: 'new-name'}]
@@ -26,7 +26,7 @@ export default class Rename extends Command {
       throw new Error(chalk`{red Another creation is already named {white.bold ${args['new-name']}}}`)
     }
     mods.id = args['new-name']
-    if (flags["id-only"]) {
+    if (flags['id-only']) {
       this.records.edit(args.name, mods)
       return
     }

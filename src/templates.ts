@@ -42,7 +42,7 @@ class Template {
 
   name: string
 
-  substitutions: Record<string, string | number> = {}
+  substitutions: Record<string, string> = {}
 
   constructor(location: string) {
     this.location = resolve(expandHomeDir(location))
@@ -55,7 +55,7 @@ class Template {
    * @param {object} substitutions An object of variables to substitute
    * @returns {string} The path to the directory where the structure was generated
    */
-  generate(whichTemplate: string, substitutions: Record<string, string | number>): string {
+  generate(whichTemplate: string, substitutions: Record<string, string>): string {
     this.substitutions = substitutions
     const outputPath = this.outputPath(whichTemplate)
     const rawStructure = this.getRawStructure(whichTemplate)
@@ -77,17 +77,23 @@ class Template {
     }
   }
 
+  /**
+   * Gets the output path for the specified template
+   * @param {string} whichTemplate Which template to choose? "new" or "add.<thing>" ?
+   * @returns {string} The output path
+   */
   outputPath(whichTemplate: string): string {
-    let commandTemplateConfig = this.templateConfig
-    const whichTemplateDisplay = whichTemplate.split('.').join(' ')
-    whichTemplate.split('.').forEach(fragment => {
-      if (commandTemplateConfig[fragment] === undefined) {
-        throw new Error(chalk`{red Your template does not define a configuration for {bold.white ${whichTemplateDisplay}}}`)
-      } else {
-        commandTemplateConfig = commandTemplateConfig[fragment]
-      }
-    })
-    if (commandTemplateConfig['in'] === undefined) {
+    let commandTemplateConfig: TemplateConfigCommand
+    if (whichTemplate === 'new') {
+      commandTemplateConfig = this.templateConfig.new
+    } else if (whichTemplate === 'add') {
+      // Get the thing: add.<thing>
+      const thing = whichTemplate.split('.')[1]
+      commandTemplateConfig = this.templateConfig.add[thing]
+    } else {
+      throw new Error(chalk`{red Cannot get template for unknown command {white.bold ${whichTemplate}}.}`)
+    }
+    if (commandTemplateConfig.in === undefined) {
       throw new Error(chalk`{red Please add a {white.bold in} key to your configuration's {white.bold [${whichTemplate}]} section.}`)
     }
     let path = commandTemplateConfig.in
@@ -131,7 +137,7 @@ class Template {
 
   /**
    * Substitute variables using {{mustache}} notation from a value
-   * 
+   *
    * TODO: use https://mozilla.github.io/nunjucks/ instead of Mustache
    * @param {string} value The value to apply substitutions to
    * @param {boolean} filename If true, sanitizes the value after substitution for use in filenames

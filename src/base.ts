@@ -14,7 +14,6 @@ export default abstract class extends Command {
   }
 
   async init() {
-    const { flags } = this.parse(this.constructor)
     if (!this.records.checkIntegrity()) {
       throw new Error(chalk`Some projects have been manually removed. Use {cyan creations regen-records} and use {cyan creations delete} or {cyan creations move} to move or delete projects in the future.`)
     }
@@ -34,12 +33,13 @@ export default abstract class extends Command {
     if (this.isInACreation()) {
       return this.currentDirCreationID
     }
-    if (!this.flags.creation) {
-      throw new Error(chalk`No creation specified. Go into a creation directory or use the {bold.cyan --creation} flag`)
-    }
-    if (this.records.byID(this.flags.creation) === undefined) {
-      throw new Error(chalk`Creation with id {bold.cyan ${this.flags.creation}} not found`)
-    }
+    // TODO: Specify creation with --creation
+    // if (!flags.creation) {
+    //   throw new Error(chalk`No creation specified. Go into a creation directory or use the {bold.cyan --creation} flag`)
+    // }
+    // if (this.records.byID(flags.creation) === undefined) {
+    //   throw new Error(chalk`Creation with id {bold.cyan ${this.flags.creation}} not found`)
+    // }
   }
 
   get currentDirCreationID(): string | undefined {
@@ -68,7 +68,7 @@ export default abstract class extends Command {
   get templatesPath(): string {
     return join(this.config.configDir, 'templates')
   }
-  
+
   get settingsPath(): string {
     return join(this.config.configDir, 'config.toml')
   }

@@ -1,16 +1,14 @@
 import {resolve} from 'path'
 import {flags} from '@oclif/command'
 import Command from '../base'
-const consola = require('consola')
-const chalk = require('chalk')
 const sanitizeFilename = require('sanitize-filename')
 
 export default class Register extends Command {
   static description = 'Add an existing project directory to '
 
   static flags = {
-    help: flags.help({char: 'h'}),
-    force: flags.boolean({char: 'f', description: "Overwrite conflicting creation."})
+    ...Command.flags,
+    force: flags.boolean({char: 'f', description: 'Overwrite conflicting creation.'}),
   }
 
   static args = [

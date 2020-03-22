@@ -34,7 +34,6 @@ USAGE
 * [`creations config`](#creations-config)
 * [`creations debug`](#creations-debug)
 * [`creations delete [FILE]`](#creations-delete-file)
-* [`creations extract [FILE]`](#creations-extract-file)
 * [`creations goto [CREATION]`](#creations-goto-creation)
 * [`creations help [COMMAND]`](#creations-help-command)
 * [`creations idea [PROJECT] IDEA`](#creations-idea-project-idea)
@@ -79,7 +78,8 @@ USAGE
   $ creations archive [NAME]
 
 OPTIONS
-  -h, --help  show CLI help
+  -h, --help   show CLI help
+  -v, --debug
 ```
 
 _See code: [src/commands/archive.ts](https://github.com/ewen-lbh/creations/blob/v0.4.0/src/commands/archive.ts)_
@@ -93,7 +93,8 @@ USAGE
   $ creations config
 
 OPTIONS
-  -h, --help  show CLI help
+  -h, --help   show CLI help
+  -v, --debug
 ```
 
 _See code: [src/commands/config.ts](https://github.com/ewen-lbh/creations/blob/v0.4.0/src/commands/config.ts)_
@@ -127,22 +128,6 @@ OPTIONS
 
 _See code: [src/commands/delete.ts](https://github.com/ewen-lbh/creations/blob/v0.4.0/src/commands/delete.ts)_
 
-## `creations extract [FILE]`
-
-describe the command here
-
-```
-USAGE
-  $ creations extract [FILE]
-
-OPTIONS
-  -f, --force
-  -h, --help       show CLI help
-  -n, --name=name  name to print
-```
-
-_See code: [src/commands/extract.ts](https://github.com/ewen-lbh/creations/blob/v0.4.0/src/commands/extract.ts)_
-
 ## `creations goto [CREATION]`
 
 Change the current working directory to CREATION's directory
@@ -152,7 +137,8 @@ USAGE
   $ creations goto [CREATION]
 
 OPTIONS
-  -h, --help  show CLI help
+  -h, --help   show CLI help
+  -v, --debug
 
 EXAMPLE
   $ creations goto schoolsyst
@@ -201,7 +187,8 @@ ARGUMENTS
            current creation's version is returned
 
 OPTIONS
-  -h, --help  show CLI help
+  -h, --help   show CLI help
+  -v, --debug
 
 EXAMPLES
   $ creations iteration 1.0.0
@@ -221,13 +208,14 @@ USAGE
   $ creations list
 
 OPTIONS
-  -a, --show-archived  Show archived creations
-  -h, --help           show CLI help
-  -s, --sort=sort      Sort by category, id, directory or archived status.
-  --no-emojis          Uses letters for archived status in place of emojis.
-  --open               Opens the records file
-  --paths-only         Only print the creations' paths
-  --show-templates     Show templates
+  -a, --show-archived                    Show archived creations
+  -h, --help                             show CLI help
+  -s, --sort=type|id|directory|archived  Sort by category, id, directory or archived status.
+  -v, --debug
+  --no-emojis                            Uses letters for archived status in place of emojis.
+  --open                                 Opens the records file
+  --paths-only                           Only print the creations' paths
+  --show-templates                       Show templates
 
 EXAMPLE
   $ creations list --paths-only
@@ -249,6 +237,7 @@ USAGE
 OPTIONS
   -f, --force  Overwrite existing target directory.
   -h, --help   show CLI help
+  -v, --debug
 ```
 
 _See code: [src/commands/move.ts](https://github.com/ewen-lbh/creations/blob/v0.4.0/src/commands/move.ts)_
@@ -284,8 +273,9 @@ USAGE
   $ creations open [NAME]
 
 OPTIONS
-  -h, --help  show CLI help
-  --no-goto   Don't  run `goto CREATION`
+  -h, --help   show CLI help
+  -v, --debug
+  --no-goto    Don't  run `goto CREATION`
 ```
 
 _See code: [src/commands/open.ts](https://github.com/ewen-lbh/creations/blob/v0.4.0/src/commands/open.ts)_
@@ -299,7 +289,8 @@ USAGE
   $ creations publish
 
 OPTIONS
-  -h, --help  show CLI help
+  -h, --help   show CLI help
+  -v, --debug
 ```
 
 _See code: [src/commands/publish.ts](https://github.com/ewen-lbh/creations/blob/v0.4.0/src/commands/publish.ts)_
@@ -334,6 +325,7 @@ ARGUMENTS
 OPTIONS
   -f, --force  Overwrite conflicting creation.
   -h, --help   show CLI help
+  -v, --debug
 ```
 
 _See code: [src/commands/register.ts](https://github.com/ewen-lbh/creations/blob/v0.4.0/src/commands/register.ts)_
@@ -349,6 +341,7 @@ USAGE
 OPTIONS
   -h, --help     show CLI help
   -i, --id-only  Do not change the directory, only the ID.
+  -v, --debug
 ```
 
 _See code: [src/commands/rename.ts](https://github.com/ewen-lbh/creations/blob/v0.4.0/src/commands/rename.ts)_
@@ -362,7 +355,8 @@ USAGE
   $ creations scan [DIRECTORY]
 
 OPTIONS
-  -h, --help  show CLI help
+  -h, --help   show CLI help
+  -v, --debug
 ```
 
 _See code: [src/commands/scan.ts](https://github.com/ewen-lbh/creations/blob/v0.4.0/src/commands/scan.ts)_
@@ -376,7 +370,8 @@ USAGE
   $ creations unarchive [NAME]
 
 OPTIONS
-  -h, --help  show CLI help
+  -h, --help   show CLI help
+  -v, --debug
 ```
 
 _See code: [src/commands/unarchive.ts](https://github.com/ewen-lbh/creations/blob/v0.4.0/src/commands/unarchive.ts)_
