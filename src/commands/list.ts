@@ -10,20 +10,25 @@ export default class List extends Command {
   static description = 'List all of your creations'
 
   static examples = [
-    `$ creations list --paths-only
-D:\\#\\Coding\\projects\\schoolsyst
-D:\\#\\Graphism\\static\\logos\\mx3
-...`,
+    `$ creations list --format paths-only
+/mnt/d/projects/creations
+/mnt/d/Coding/projects/mx3creations
+$ creations list --format table --show-archived
+S  │ Name      │ Type      │ Location                     
+  │ creations │ cli/oclif │ /mnt/d/projects/creations          
+  │ portfolio │ nuxt/site │ /mnt/d/Coding/projects/mx3creations
+📦 │ aven      │ website   │ /mnt/d/projects/aven  
+`,
   ]
 
   static flags = {
     ...Command.flags,
-    'paths-only': flags.boolean({description: 'Only print the creations\' paths'}),
     'show-archived': flags.boolean({description: 'Show archived creations', char: 'a'}),
     'show-templates': flags.boolean({description: 'Show templates'}),
     open: flags.boolean({description: 'Opens the records file'}),
     sort: flags.string({description: 'Sort by category, id, directory or archived status.', char: 's', options: ['type', 'id', 'directory', 'archived']}),
     'no-emojis': flags.boolean({description: 'Uses letters for archived status in place of emojis.'}),
+    format: flags.string({description: 'How to format the list', char: 'f', options: ['table', 'sentences', 'paths-only'], default: 'sentences'}),
   }
 
   async run() {
@@ -37,8 +42,8 @@ D:\\#\\Graphism\\static\\logos\\mx3
     if (!flags['show-templates']) creations = creations.filter(c => c.type !== 'template')
     // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
     // @ts-ignore
-    creations = creations.sort(firstBy(flags.sort || 'id'))
-    if (flags['paths-only']) {
+    creations = creations.sort(firstBy(flags.sort || 'archived').thenBy('id'))
+    if (flags.format === 'paths-only') {
       creations.forEach(entry => {
         console.log(entry.directory)
       })
@@ -51,16 +56,28 @@ D:\\#\\Graphism\\static\\logos\\mx3
       archived: c.archived ? archivedIcon : '',
     }))
     // Config columnify
-    const hideHeader = {showHeaders: false}
-    const coloredHeader = {headingTransform: (h: string) => chalk`{cyan ${Case.title(h)}}`}
+    const headerConfig = (displayName: string | null = null) => ({
+      showHeaders: flags.format !== 'sentences',
+      headingTransform: () => chalk`{cyan ${displayName}}`,
+    })
     const columnifyConfig = {
       columns: ['id', 'type', 'directory'],
+      columnSplitter: (flags.format === 'sentences' ? '' : ' │ '),
       config: {
-        id: hideHeader,
-        archived: hideHeader,
-        type: coloredHeader,
-        directory: coloredHeader,
+        id: headerConfig('Name'),
+        archived: headerConfig('S'),
+        type: headerConfig('Type'),
+        directory: headerConfig('Location'),
       },
+    }
+    if (flags.format === 'sentences') {
+      // Add sentence elements
+      creations = creations.map(c => ({
+        archived: c.archived,
+        id: c.id,
+        type: chalk`{dim , a} ${c.type}`,
+        directory: chalk`{dim  in} ${c.directory}`,
+      }))
     }
     // Show the "archived" column when the -a flag is set
     if (flags['show-archived']) columnifyConfig.columns = ['archived', ...columnifyConfig.columns]
