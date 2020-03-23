@@ -20,7 +20,7 @@ $ npm install -g creations
 $ creations COMMAND
 running command...
 $ creations (-v|--version|version)
-creations/0.4.0 linux-x64 node-v13.11.0
+creations/0.5.0 linux-x64 node-v13.11.0
 $ creations --help [COMMAND]
 USAGE
   $ creations COMMAND
@@ -48,7 +48,7 @@ USAGE
 * [`creations rename [NAME] [NEW-NAME]`](#creations-rename-name-new-name)
 * [`creations scan [DIRECTORY]`](#creations-scan-directory)
 * [`creations unarchive [NAME]`](#creations-unarchive-name)
-* [`creations unregister [FILE]`](#creations-unregister-file)
+* [`creations unregister [NAME]`](#creations-unregister-name)
 
 ## `creations add THING NAME`
 
@@ -68,7 +68,7 @@ EXAMPLES
   $ creations add resource background.png
 ```
 
-_See code: [src/commands/add.ts](https://github.com/ewen-lbh/creations/blob/v0.4.0/src/commands/add.ts)_
+_See code: [src/commands/add.ts](https://github.com/ewen-lbh/creations/blob/v0.5.0/src/commands/add.ts)_
 
 ## `creations archive [NAME]`
 
@@ -79,11 +79,15 @@ USAGE
   $ creations archive [NAME]
 
 OPTIONS
-  -h, --help   show CLI help
+  -c, --creation=CREATION-ID  Use this creation instead of the current. Only has effect on commands relying on the
+                              current creation.
+
+  -h, --help                  show CLI help
+
   -v, --debug
 ```
 
-_See code: [src/commands/archive.ts](https://github.com/ewen-lbh/creations/blob/v0.4.0/src/commands/archive.ts)_
+_See code: [src/commands/archive.ts](https://github.com/ewen-lbh/creations/blob/v0.5.0/src/commands/archive.ts)_
 
 ## `creations config`
 
@@ -94,11 +98,15 @@ USAGE
   $ creations config
 
 OPTIONS
-  -h, --help   show CLI help
+  -c, --creation=CREATION-ID  Use this creation instead of the current. Only has effect on commands relying on the
+                              current creation.
+
+  -h, --help                  show CLI help
+
   -v, --debug
 ```
 
-_See code: [src/commands/config.ts](https://github.com/ewen-lbh/creations/blob/v0.4.0/src/commands/config.ts)_
+_See code: [src/commands/config.ts](https://github.com/ewen-lbh/creations/blob/v0.5.0/src/commands/config.ts)_
 
 ## `creations debug`
 
@@ -107,11 +115,15 @@ USAGE
   $ creations debug
 
 OPTIONS
-  -h, --help   show CLI help
+  -c, --creation=CREATION-ID  Use this creation instead of the current. Only has effect on commands relying on the
+                              current creation.
+
+  -h, --help                  show CLI help
+
   -v, --debug
 ```
 
-_See code: [src/commands/debug.ts](https://github.com/ewen-lbh/creations/blob/v0.4.0/src/commands/debug.ts)_
+_See code: [src/commands/debug.ts](https://github.com/ewen-lbh/creations/blob/v0.5.0/src/commands/debug.ts)_
 
 ## `creations delete [NAME]`
 
@@ -122,12 +134,17 @@ USAGE
   $ creations delete [NAME]
 
 OPTIONS
-  -h, --help   show CLI help
+  -c, --creation=CREATION-ID  Use this creation instead of the current. Only has effect on commands relying on the
+                              current creation.
+
+  -h, --help                  show CLI help
+
   -v, --debug
-  -y, --yes    Do not ask for confirmation.
+
+  -y, --yes                   Do not ask for confirmation.
 ```
 
-_See code: [src/commands/delete.ts](https://github.com/ewen-lbh/creations/blob/v0.4.0/src/commands/delete.ts)_
+_See code: [src/commands/delete.ts](https://github.com/ewen-lbh/creations/blob/v0.5.0/src/commands/delete.ts)_
 
 ## `creations goto [CREATION]`
 
@@ -138,14 +155,18 @@ USAGE
   $ creations goto [CREATION]
 
 OPTIONS
-  -h, --help   show CLI help
+  -c, --creation=CREATION-ID  Use this creation instead of the current. Only has effect on commands relying on the
+                              current creation.
+
+  -h, --help                  show CLI help
+
   -v, --debug
 
 EXAMPLE
   $ creations goto schoolsyst
 ```
 
-_See code: [src/commands/goto.ts](https://github.com/ewen-lbh/creations/blob/v0.4.0/src/commands/goto.ts)_
+_See code: [src/commands/goto.ts](https://github.com/ewen-lbh/creations/blob/v0.5.0/src/commands/goto.ts)_
 
 ## `creations help [COMMAND]`
 
@@ -173,7 +194,7 @@ USAGE
   $ creations idea [PROJECT] IDEA
 ```
 
-_See code: [src/commands/idea.ts](https://github.com/ewen-lbh/creations/blob/v0.4.0/src/commands/idea.ts)_
+_See code: [src/commands/idea.ts](https://github.com/ewen-lbh/creations/blob/v0.5.0/src/commands/idea.ts)_
 
 ## `creations iteration [VERSION]`
 
@@ -188,7 +209,11 @@ ARGUMENTS
            current creation's version is returned
 
 OPTIONS
-  -h, --help   show CLI help
+  -c, --creation=CREATION-ID  Use this creation instead of the current. Only has effect on commands relying on the
+                              current creation.
+
+  -h, --help                  show CLI help
+
   -v, --debug
 
 EXAMPLES
@@ -198,7 +223,7 @@ EXAMPLES
   v2.0.3
 ```
 
-_See code: [src/commands/iteration.ts](https://github.com/ewen-lbh/creations/blob/v0.4.0/src/commands/iteration.ts)_
+_See code: [src/commands/iteration.ts](https://github.com/ewen-lbh/creations/blob/v0.5.0/src/commands/iteration.ts)_
 
 ## `creations list`
 
@@ -210,12 +235,22 @@ USAGE
 
 OPTIONS
   -a, --show-archived                      Show archived creations
+
+  -c, --creation=CREATION-ID               Use this creation instead of the current. Only has effect on commands relying
+                                           on the current creation.
+
   -f, --format=table|sentences|paths-only  [default: sentences] How to format the list
+
   -h, --help                               show CLI help
+
   -s, --sort=type|id|directory|archived    Sort by category, id, directory or archived status.
+
   -v, --debug
+
   --no-emojis                              Uses letters for archived status in place of emojis.
+
   --open                                   Opens the records file
+
   --show-templates                         Show templates
 
 EXAMPLE
@@ -229,7 +264,7 @@ EXAMPLE
   📦 │ aven      │ website   │ /mnt/d/projects/aven
 ```
 
-_See code: [src/commands/list.ts](https://github.com/ewen-lbh/creations/blob/v0.4.0/src/commands/list.ts)_
+_See code: [src/commands/list.ts](https://github.com/ewen-lbh/creations/blob/v0.5.0/src/commands/list.ts)_
 
 ## `creations move [NAME] [NEW-DIRECTORY]`
 
@@ -240,12 +275,24 @@ USAGE
   $ creations move [NAME] [NEW-DIRECTORY]
 
 OPTIONS
-  -f, --force  Overwrite existing target directory.
-  -h, --help   show CLI help
+  -c, --creation=CREATION-ID  Use this creation instead of the current. Only has effect on commands relying on the
+                              current creation.
+
+  -f, --force                 Overwrite existing target directory.
+
+  -h, --help                  show CLI help
+
   -v, --debug
+
+EXAMPLE
+  $ creations list -f paths-only
+  /mnt/d/projects/Coding/portfolio
+  $ creations move portfolio /mnt/d/projects/
+  $ creations list -f paths-only
+  /mnt/d/projects/portfolio
 ```
 
-_See code: [src/commands/move.ts](https://github.com/ewen-lbh/creations/blob/v0.4.0/src/commands/move.ts)_
+_See code: [src/commands/move.ts](https://github.com/ewen-lbh/creations/blob/v0.5.0/src/commands/move.ts)_
 
 ## `creations new TYPE NAME`
 
@@ -256,18 +303,28 @@ USAGE
   $ creations new TYPE NAME
 
 OPTIONS
-  -h, --help      show CLI help
+  -O, --no-open               Don't run creations open after creating the creation
+
+  -c, --creation=CREATION-ID  Use this creation instead of the current. Only has effect on commands relying on the
+                              current creation.
+
+  -h, --help                  show CLI help
+
   -v, --debug
-  --archive       Archive existing projects in case the project name is already taken
-  --force         Overwrite existing projects in case the project name is already taken
-  --in=DIRECTORY  Generate the template in the specified directory. Uses the type's new.in config as a default.
+
+  --archive                   Archive existing projects in case the project name is already taken
+
+  --force                     Overwrite existing projects in case the project name is already taken
+
+  --in=DIRECTORY              Generate the template in the specified directory. Uses the type's new.in config as a
+                              default.
 
 EXAMPLES
   $ creations new restapi schoolsyst
   $ creations new logo mx3
 ```
 
-_See code: [src/commands/new.ts](https://github.com/ewen-lbh/creations/blob/v0.4.0/src/commands/new.ts)_
+_See code: [src/commands/new.ts](https://github.com/ewen-lbh/creations/blob/v0.5.0/src/commands/new.ts)_
 
 ## `creations open [NAME]`
 
@@ -278,12 +335,17 @@ USAGE
   $ creations open [NAME]
 
 OPTIONS
-  -h, --help   show CLI help
+  -c, --creation=CREATION-ID  Use this creation instead of the current. Only has effect on commands relying on the
+                              current creation.
+
+  -h, --help                  show CLI help
+
   -v, --debug
-  --no-goto    Don't  run `goto CREATION`
+
+  --no-goto                   Don't  run `goto CREATION`
 ```
 
-_See code: [src/commands/open.ts](https://github.com/ewen-lbh/creations/blob/v0.4.0/src/commands/open.ts)_
+_See code: [src/commands/open.ts](https://github.com/ewen-lbh/creations/blob/v0.5.0/src/commands/open.ts)_
 
 ## `creations publish`
 
@@ -294,11 +356,15 @@ USAGE
   $ creations publish
 
 OPTIONS
-  -h, --help   show CLI help
+  -c, --creation=CREATION-ID  Use this creation instead of the current. Only has effect on commands relying on the
+                              current creation.
+
+  -h, --help                  show CLI help
+
   -v, --debug
 ```
 
-_See code: [src/commands/publish.ts](https://github.com/ewen-lbh/creations/blob/v0.4.0/src/commands/publish.ts)_
+_See code: [src/commands/publish.ts](https://github.com/ewen-lbh/creations/blob/v0.5.0/src/commands/publish.ts)_
 
 ## `creations regen-records`
 
@@ -312,7 +378,7 @@ OPTIONS
   -h, --help  show CLI help
 ```
 
-_See code: [src/commands/regen-records.ts](https://github.com/ewen-lbh/creations/blob/v0.4.0/src/commands/regen-records.ts)_
+_See code: [src/commands/regen-records.ts](https://github.com/ewen-lbh/creations/blob/v0.5.0/src/commands/regen-records.ts)_
 
 ## `creations register DIRECTORY TYPE [NAME]`
 
@@ -325,15 +391,20 @@ USAGE
 ARGUMENTS
   DIRECTORY  The directory to register
   TYPE       What is this project?
-  NAME       Choose the name. Defaults to DIRECTORY.
+  NAME       Choose the name. Defaults to DIRECTORY's basename.
 
 OPTIONS
-  -f, --force  Overwrite conflicting creation.
-  -h, --help   show CLI help
+  -c, --creation=CREATION-ID  Use this creation instead of the current. Only has effect on commands relying on the
+                              current creation.
+
+  -f, --force                 Overwrite conflicting creation.
+
+  -h, --help                  show CLI help
+
   -v, --debug
 ```
 
-_See code: [src/commands/register.ts](https://github.com/ewen-lbh/creations/blob/v0.4.0/src/commands/register.ts)_
+_See code: [src/commands/register.ts](https://github.com/ewen-lbh/creations/blob/v0.5.0/src/commands/register.ts)_
 
 ## `creations rename [NAME] [NEW-NAME]`
 
@@ -344,12 +415,17 @@ USAGE
   $ creations rename [NAME] [NEW-NAME]
 
 OPTIONS
-  -h, --help     show CLI help
-  -i, --id-only  Do not change the directory, only the ID.
+  -c, --creation=CREATION-ID  Use this creation instead of the current. Only has effect on commands relying on the
+                              current creation.
+
+  -h, --help                  show CLI help
+
+  -i, --id-only               Do not change the directory, only the ID.
+
   -v, --debug
 ```
 
-_See code: [src/commands/rename.ts](https://github.com/ewen-lbh/creations/blob/v0.4.0/src/commands/rename.ts)_
+_See code: [src/commands/rename.ts](https://github.com/ewen-lbh/creations/blob/v0.5.0/src/commands/rename.ts)_
 
 ## `creations scan [DIRECTORY]`
 
@@ -360,11 +436,15 @@ USAGE
   $ creations scan [DIRECTORY]
 
 OPTIONS
-  -h, --help   show CLI help
+  -c, --creation=CREATION-ID  Use this creation instead of the current. Only has effect on commands relying on the
+                              current creation.
+
+  -h, --help                  show CLI help
+
   -v, --debug
 ```
 
-_See code: [src/commands/scan.ts](https://github.com/ewen-lbh/creations/blob/v0.4.0/src/commands/scan.ts)_
+_See code: [src/commands/scan.ts](https://github.com/ewen-lbh/creations/blob/v0.5.0/src/commands/scan.ts)_
 
 ## `creations unarchive [NAME]`
 
@@ -375,25 +455,32 @@ USAGE
   $ creations unarchive [NAME]
 
 OPTIONS
-  -h, --help   show CLI help
+  -c, --creation=CREATION-ID  Use this creation instead of the current. Only has effect on commands relying on the
+                              current creation.
+
+  -h, --help                  show CLI help
+
   -v, --debug
 ```
 
-_See code: [src/commands/unarchive.ts](https://github.com/ewen-lbh/creations/blob/v0.4.0/src/commands/unarchive.ts)_
+_See code: [src/commands/unarchive.ts](https://github.com/ewen-lbh/creations/blob/v0.5.0/src/commands/unarchive.ts)_
 
-## `creations unregister [FILE]`
+## `creations unregister [NAME]`
 
-describe the command here
+Removes a creation from the record, but does not delete its directory.
 
 ```
 USAGE
-  $ creations unregister [FILE]
+  $ creations unregister [NAME]
 
 OPTIONS
-  -f, --force
-  -h, --help       show CLI help
-  -n, --name=name  name to print
+  -c, --creation=CREATION-ID  Use this creation instead of the current. Only has effect on commands relying on the
+                              current creation.
+
+  -h, --help                  show CLI help
+
+  -v, --debug
 ```
 
-_See code: [src/commands/unregister.ts](https://github.com/ewen-lbh/creations/blob/v0.4.0/src/commands/unregister.ts)_
+_See code: [src/commands/unregister.ts](https://github.com/ewen-lbh/creations/blob/v0.5.0/src/commands/unregister.ts)_
 <!-- commandsstop -->
