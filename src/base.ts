@@ -10,10 +10,21 @@ import { join } from 'path'
 export default abstract class extends Command {
   static flags = {
     debug: flags.boolean({char: 'v'}),
+    creation: flags.string({char: 'c', description: 'Use this creation instead of the current. Only has effect on commands relying on the current creation.', helpValue: 'CREATION-ID'}),
     help: flags.help({char: 'h'}),
   }
 
+  flagValues: {
+    debug: boolean;
+    creation: string | null;
+  } = {
+    debug: false,
+    creation: null,
+  }
+
   async init() {
+    const {flags} = this.parse(this.constructor)
+    this.flagValues = flags
     if (!this.records.checkIntegrity()) {
       throw new Error(chalk`Some projects have been manually removed. Use {cyan creations regen-records} and use {cyan creations delete} or {cyan creations move} to move or delete projects in the future.`)
     }
@@ -26,7 +37,7 @@ export default abstract class extends Command {
   }
 
   isInACreation(): boolean {
-    return this.currentCreation !== undefined
+    return this.currentDirCreationID !== undefined
   }
 
   get currentCreationID(): string | undefined {
@@ -34,16 +45,16 @@ export default abstract class extends Command {
       return this.currentDirCreationID
     }
     // TODO: Specify creation with --creation
-    // if (!flags.creation) {
-    //   throw new Error(chalk`No creation specified. Go into a creation directory or use the {bold.cyan --creation} flag`)
-    // }
-    // if (this.records.byID(flags.creation) === undefined) {
-    //   throw new Error(chalk`Creation with id {bold.cyan ${this.flags.creation}} not found`)
-    // }
+    if (!this.flagValues.creation) {
+      throw new Error(chalk`No creation specified. Go into a creation directory or use the {bold.cyan --creation} flag`)
+    }
+    if (this.records.byID(this.flagValues.creation) === undefined) {
+      throw new Error(chalk`Creation with id {bold.cyan ${this.flagValues.creation}} not found`)
+    }
   }
 
   get currentDirCreationID(): string | undefined {
-    const currentDir = path.resolve(__dirname)
+    const currentDir = process.cwd()
     let recordID
     for (const {id, directory} of this.records.entries) {
       if (path.resolve(directory) === currentDir) {
