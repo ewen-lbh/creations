@@ -1,4 +1,5 @@
 import Command, {flags} from '@oclif/command'
+import {Input} from '@oclif/parser'
 const toml = require('@iarna/toml')
 const path = require('path')
 const chalk = require('chalk')
@@ -23,7 +24,7 @@ export default abstract class extends Command {
   }
 
   async init() {
-    const {flags} = this.parse(this.constructor)
+    const {flags} = this.parse(this.constructor as Input<any>)
     this.flagValues = flags
     if (!this.records.checkIntegrity()) {
       throw new Error(chalk`Some projects have been manually removed. Use {cyan creations regen-records} and use {cyan creations delete} or {cyan creations move} to move or delete projects in the future.`)
