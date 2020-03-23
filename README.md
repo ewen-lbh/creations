@@ -33,7 +33,7 @@ USAGE
 * [`creations archive [NAME]`](#creations-archive-name)
 * [`creations config`](#creations-config)
 * [`creations debug`](#creations-debug)
-* [`creations delete [FILE]`](#creations-delete-file)
+* [`creations delete [NAME]`](#creations-delete-name)
 * [`creations goto [CREATION]`](#creations-goto-creation)
 * [`creations help [COMMAND]`](#creations-help-command)
 * [`creations idea [PROJECT] IDEA`](#creations-idea-project-idea)
