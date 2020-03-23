@@ -484,3 +484,7 @@ OPTIONS
 
 _See code: [src/commands/unregister.ts](https://github.com/ewen-lbh/creations/blob/v0.5.0/src/commands/unregister.ts)_
 <!-- commandsstop -->
+
+# Changelog
+
+See [CHANGELOG.md](../blob/master/CHANGELOG.md "This project adheres to the keepachangelog standard")
