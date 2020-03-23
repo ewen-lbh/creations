@@ -14,7 +14,7 @@ export default class Move extends Command {
     force: flags.boolean({char: 'f', description: 'Overwrite existing target directory.'}),
   }
 
-  static args = [{name: 'name'}, {name: 'directory'}]
+  static args = [{name: 'name'}, {name: 'new-directory'}]
 
   async run() {
     const {args, flags} = this.parse(Move)
@@ -22,7 +22,7 @@ export default class Move extends Command {
     if (!creation) {
       throw new Error(`{red Cannot find creation with ID {white.bold ${args.name}}}`)
     }
-    const newDir = join(resolve(args.directory), creation.id)
+    const newDir = join(resolve(args['new-directory']), creation.id)
     if (existsSync(newDir)) {
       if (flags.force) {
         consola.warn(chalk`Deleting directory ${newDir} because it already exists.`)
