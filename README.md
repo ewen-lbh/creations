@@ -39,7 +39,7 @@ USAGE
 * [`creations idea [PROJECT] IDEA`](#creations-idea-project-idea)
 * [`creations iteration [VERSION]`](#creations-iteration-version)
 * [`creations list`](#creations-list)
-* [`creations move [NAME] [DIRECTORY]`](#creations-move-name-directory)
+* [`creations move [NAME] [NEW-DIRECTORY]`](#creations-move-name-new-directory)
 * [`creations new TYPE NAME`](#creations-new-type-name)
 * [`creations open [NAME]`](#creations-open-name)
 * [`creations publish`](#creations-publish)
@@ -48,6 +48,7 @@ USAGE
 * [`creations rename [NAME] [NEW-NAME]`](#creations-rename-name-new-name)
 * [`creations scan [DIRECTORY]`](#creations-scan-directory)
 * [`creations unarchive [NAME]`](#creations-unarchive-name)
+* [`creations unregister [FILE]`](#creations-unregister-file)
 
 ## `creations add THING NAME`
 
@@ -112,18 +113,18 @@ OPTIONS
 
 _See code: [src/commands/debug.ts](https://github.com/ewen-lbh/creations/blob/v0.4.0/src/commands/debug.ts)_
 
-## `creations delete [FILE]`
+## `creations delete [NAME]`
 
-describe the command here
+Deletes a creations from the records AND delete the folder.
 
 ```
 USAGE
-  $ creations delete [FILE]
+  $ creations delete [NAME]
 
 OPTIONS
-  -f, --force
-  -h, --help       show CLI help
-  -n, --name=name  name to print
+  -h, --help   show CLI help
+  -v, --debug
+  -y, --yes    Do not ask for confirmation.
 ```
 
 _See code: [src/commands/delete.ts](https://github.com/ewen-lbh/creations/blob/v0.4.0/src/commands/delete.ts)_
@@ -208,31 +209,35 @@ USAGE
   $ creations list
 
 OPTIONS
-  -a, --show-archived                    Show archived creations
-  -h, --help                             show CLI help
-  -s, --sort=type|id|directory|archived  Sort by category, id, directory or archived status.
+  -a, --show-archived                      Show archived creations
+  -f, --format=table|sentences|paths-only  [default: sentences] How to format the list
+  -h, --help                               show CLI help
+  -s, --sort=type|id|directory|archived    Sort by category, id, directory or archived status.
   -v, --debug
-  --no-emojis                            Uses letters for archived status in place of emojis.
-  --open                                 Opens the records file
-  --paths-only                           Only print the creations' paths
-  --show-templates                       Show templates
+  --no-emojis                              Uses letters for archived status in place of emojis.
+  --open                                   Opens the records file
+  --show-templates                         Show templates
 
 EXAMPLE
-  $ creations list --paths-only
-  D:\#\Coding\projects\schoolsyst
-  D:\#\Graphism\static\logos\mx3
-  ...
+  $ creations list --format paths-only
+  /mnt/d/projects/creations
+  /mnt/d/Coding/projects/mx3creations
+  $ creations list --format table --show-archived
+  S  │ Name      │ Type      │ Location                     
+     │ creations │ cli/oclif │ /mnt/d/projects/creations          
+     │ portfolio │ nuxt/site │ /mnt/d/Coding/projects/mx3creations
+  📦 │ aven      │ website   │ /mnt/d/projects/aven
 ```
 
 _See code: [src/commands/list.ts](https://github.com/ewen-lbh/creations/blob/v0.4.0/src/commands/list.ts)_
 
-## `creations move [NAME] [DIRECTORY]`
+## `creations move [NAME] [NEW-DIRECTORY]`
 
 Move a project to a different directory.
 
 ```
 USAGE
-  $ creations move [NAME] [DIRECTORY]
+  $ creations move [NAME] [NEW-DIRECTORY]
 
 OPTIONS
   -f, --force  Overwrite existing target directory.
@@ -375,4 +380,20 @@ OPTIONS
 ```
 
 _See code: [src/commands/unarchive.ts](https://github.com/ewen-lbh/creations/blob/v0.4.0/src/commands/unarchive.ts)_
+
+## `creations unregister [FILE]`
+
+describe the command here
+
+```
+USAGE
+  $ creations unregister [FILE]
+
+OPTIONS
+  -f, --force
+  -h, --help       show CLI help
+  -n, --name=name  name to print
+```
+
+_See code: [src/commands/unregister.ts](https://github.com/ewen-lbh/creations/blob/v0.4.0/src/commands/unregister.ts)_
 <!-- commandsstop -->
