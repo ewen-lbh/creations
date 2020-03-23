@@ -16,6 +16,14 @@ export default class Move extends Command {
 
   static args = [{name: 'name'}, {name: 'new-directory'}]
 
+  static examples = [
+    chalk`{dim $} creations list -f paths-only
+{blue /mnt/d/projects/Coding/portfolio}
+{dim $} creations {cyan move portfolio /mnt/d/projects/}
+{dim $} creations list -f paths-only
+{blue /mnt/d/projects/portfolio}`,
+  ]
+
   async run() {
     const {args, flags} = this.parse(Move)
     const creation = this.records.byID(args.name)
