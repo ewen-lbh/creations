@@ -11,6 +11,7 @@
 import { readFileSync, readdirSync } from 'fs'
 import { writeOrCreate } from './io'
 import { join, basename, dirname, relative, resolve } from 'path'
+import { snakeCase } from 'change-case'
 const consola = require('consola')
 const directoryTree = require('directory-tree')
 const Mustache = require('mustache')
@@ -31,6 +32,7 @@ interface DirectoryTree {
  */
 interface TemplateConfigCommand {
   in: string;
+  after: string[] | undefined;
 }
 interface TemplateConfig {
   new: TemplateConfigCommand;
@@ -59,17 +61,24 @@ class Template {
     this.substitutions = substitutions
     const outputPath = this.outputPath(whichTemplate)
     const rawStructure = this.getRawStructure(whichTemplate)
-    this._renderAndCreate(rawStructure, outputPath)
+    this._renderAndCreate(rawStructure, outputPath, whichTemplate)
     return outputPath
   }
 
-  _renderAndCreate(tree: DirectoryTree, outputDir: string): void {
+  /**
+   * Renders the file and creates it, or recurses if `tree` represents a directory
+   * @param {DirectoryTree} tree The directory object to iterate through
+   * @param {string} outputDir The output directory
+   * @param {string} whichTemplate Which template is being generated (either "new" or "add.<thing>")
+   */
+  _renderAndCreate(tree: DirectoryTree, outputDir: string, whichTemplate: string): void {
+    // TODO: handle empty directories
     if (tree.type === 'directory') {
       for (const child of tree.children) {
-        this._renderAndCreate(child, outputDir)
+        this._renderAndCreate(child, outputDir, whichTemplate)
       }
     } else {
-      const outFilePath = tree.path.replace(this.location, outputDir)
+      const outFilePath = tree.path.replace(join(this.location, whichTemplate), outputDir)
       const contents = readFileSync(tree.path).toString()
       const rendered = Mustache.render(contents, this.substitutions)
       writeOrCreate(outFilePath, rendered)
@@ -146,7 +155,8 @@ class Template {
   _substitute(value: string, {filename} = {filename: false}): string {
     // To replace @/ with the project's path
     value = value.replace(/@\//g, '{{ projectDir }}/')
-    let rendered = Mustache.render(value, this.additionalSubstitutions)
+    const substitutions = this.additionalSubstitutions
+    let rendered = Mustache.render(value, substitutions)
     if (filename) {
       rendered = sanitizeFilename(value)
     }
@@ -162,6 +172,7 @@ class Template {
     return {
       ...this.substitutions,
       'name~slashes2dots': this.substitutions?.name.split('/').join('.'),
+      'name~snake': snakeCase(this.substitutions?.name),
       ob: '{{',
       cb: '}}',
     }
