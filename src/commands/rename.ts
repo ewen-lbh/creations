@@ -30,7 +30,7 @@ export default class Rename extends Command {
       this.records.edit(args.name, mods)
       return
     }
-    const newDir = join(dirname(creation.directory), args['new-name'])
+    const newDir = join(dirname(creation.directory), args['new-name'].replace(/\//g, '.'))
 
     mods.directory = newDir
     createAndMove(creation.directory, newDir)
