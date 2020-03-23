@@ -1,7 +1,9 @@
 import {flags} from '@oclif/command'
 import Command from '../base'
-import consola from 'consola'
+import Open from './open'
 const chalk = require('chalk')
+const consola = require('consola')
+const execa = require('execa')
 
 export default class New extends Command {
   static description = 'Create a new TYPE named CREATION'
@@ -17,7 +19,8 @@ export default class New extends Command {
     ...Command.flags,
     in: flags.string({required: false, description: 'Generate the template in the specified directory. Uses the type\'s new.in config as a default.', helpValue: 'DIRECTORY'}),
     force: flags.boolean({description: 'Overwrite existing projects in case the project name is already taken'}),
-    archive: flags.boolean({description: 'Archive existing projects in case the project name is already taken'})
+    archive: flags.boolean({description: 'Archive existing projects in case the project name is already taken'}),
+    'no-open': flags.boolean({description: "Don't run creations open after creating the creation", char: 'O'}),
   }
 
   async run() {
@@ -49,5 +52,17 @@ export default class New extends Command {
       type: args.type,
     })
     console.log(chalk`Added {cyan ${args.name}} to the creations record {dim (${this.recordsPath})}`)
+    if (template.templateConfig.new.after) {
+      process.chdir(outputDir)
+      for (let command of template.templateConfig.new.after) {
+        command = template._substitute(command)
+        console.log(chalk`{dim $ ${command}}`)
+        // eslint-disable-next-line no-await-in-loop
+        await execa(command, { shell: true })
+      }
+    }
+    if (!flags['no-open']) {
+      Open.run([args.name])
+    }
   }
 }
