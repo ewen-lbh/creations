@@ -17,6 +17,7 @@
     "@types/mustache": "^4.0.1",
     "case": "^1.6.2",
     "chalk": "^3.0.0",
+    "change-case": "^4.1.1",
     "columnify": "^1.5.4",
     "consola": "^2.11.3",
     "directory-tree": "^2.2.4",
