@@ -4,9 +4,20 @@ v0.0.0
 
 ifdef::env-github,env-browser[:outfilesuffix: .adoc]
 
-== This project isn't dead
-I'm currently working hard on my https://ewen.works[portfolio] because I need to get it done.
-As soon as it is finished, I will go back to working on `creations` and https://www.schoolsyst.com[schoolsyst]
+== I'm reconsidering the scope of this project
+By having a simpler, flatter project structre (i.e. all projects in a `projects` folder), and by using https://github.com/replit/upm[upm] to manage dependencies, I think this should be turned into a CLI that simply manages ideas. Something like `idea YOUR_IDEA`, that could, if in a project, create a new github issue/github project card (or a note on google keep if the project does not have a git repository, i.e. a non-code project), or if outside of a project, create a card on a user's project (like an incubator), if code-related or a google keep card with the appropriate label (sth like "Project idea") if not code-related.
+
+A lot of the commands I had as ideas are now solved by other commands/a better folder structure:
+
+[horizontal]
+new, move, etc. :: having a flatter folder structure
+archive :: moving folders in a projects/.archived subfolder
+dependencies management :: https://github.com/replit/upm[upm]
+start :: better package.json scripts (still not solved for python projects though)
+
+The thing that still remains useful (outside of the whole "ideas managing") is project boilerplating, though the `new` command can still be relevant, but should be decoupled from the ideas-managing (i.e. the two comands should be two separate projects), and I'm sure CLIs already exists to generate project structures (even outside things like `npx create`, because boilerplates provided by framework maintainers is sometimes too broad or has too much "demo code" (e.g. nuxtjs' has some default components that you delete right away each time you create a project)
+but on the flipside, boilerplates, when too specific, can _restrict your possibilites_, forcing you to "obey" the boilerplate's way of seeing things, but it can also help starting projects faster, and being better organized.
+
 
 == Installation
 
