@@ -5,7 +5,7 @@ v0.0.0
 ifdef::env-github,env-browser[:outfilesuffix: .adoc]
 
 == I'm reconsidering the scope of this project
-By having a simpler, flatter project structre (i.e. all projects in a `projects` folder), and by using https://github.com/replit/upm[upm] to manage dependencies, I think this should be turned into a CLI that simply manages ideas. Something like `idea YOUR_IDEA`, that could, if in a project, create a new github issue/github project card (or a note on google keep if the project does not have a git repository, i.e. a non-code project), or if outside of a project, create a card on a user's project (like an incubator), if code-related or a google keep card with the appropriate label (sth like "Project idea") if not code-related.
+By having a simpler, flatter project structre (i.e. all projects in a `projects` folder), and by using https://github.com/replit/upm[upm] to manage dependencies, I think this should be turned into a CLI that simply manages ideas. ~~Something like `idea YOUR_IDEA`, that could, if in a project, create a new github issue/github project card (or a note on google keep if the project does not have a git repository, i.e. a non-code project), or if outside of a project, create a card on a user's project (like an incubator), if code-related or a google keep card with the appropriate label (sth like "Project idea") if not code-related.~~ done! see [ideaseed](https://github.com/ewen-lbh/ideaseed)
 
 A lot of the commands I had as ideas are now solved by other commands/a better folder structure:
 
